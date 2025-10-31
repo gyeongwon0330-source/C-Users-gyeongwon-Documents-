@@ -1,0 +1,4713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"포지션 베이스 스캔"</Description>
+      <Color>0000FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[enable]
+{$lua}
+  local results = AOBScan("67 51 92 37 00 01")
+  -- aob 스캔
+
+  if results == nil or results.Count == 0 then
+  -- 결과가 없는지 확인
+
+    showMessage("AOB 패턴을 찾지 못했습니다.")
+    return
+  end
+
+  local found = false
+  -- 조건을 만족한 주소가 발견되었는지 체크할 변수
+
+  for i = 0, results.Count - 1 do
+  -- 검색된 모든 주소에 대해 반복
+
+  local addr = tonumber(results[i], 16)
+  -- 첫 번째 주소를 가져옴
+
+  local checkaddr = addr - 0x614
+  -- 현재 주소에서 -0x614에 있는 주소계산
+
+  local val = readFloat(checkaddr)
+  -- 그 주소의 float 값을 읽어옴
+
+  if val == -1.0 then
+  -- 만약 읽어온 float값이 -1.0이라면, 조건을 만족하는 주소
+
+  pb = addr - 0x8B0
+  -- 조건을 만족한 주소에서 -0x894 한 주소를 전역변수 pb에 저장
+
+  PlayerX = pb + 0x18
+  PlayerY = pb + 0x1C
+
+  found = true
+  break -- 하나만 찾으면 종료
+  end
+  end
+
+    results.destroy()
+  -- 검색 결과 리스트 삭제
+
+
+    if pb == nil then
+    -- 조건을 만족하는 주소가 없으면
+     showMessage("포지션베이스를 찾지 못했습니다.")
+     return
+  end
+
+  local addr = pb + 0x29C
+  writeFloat(addr, 99999)
+  -- 오프셋 +0x280에 float 99999 값변경
+
+
+[disable]
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"X 좌표"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>pb+18</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Y 좌표"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>pb+1C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53332</ID>
+      <Description>"상호작용 on off"</Description>
+      <Color>000080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+pb+751:
+db 00
+[disable]
+pb+751:
+db 01
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53334</ID>
+      <Description>"즉시도착"</Description>
+      <Color>FF00FF</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[enable]
+pb+18-54:
+db FF FF FF FF
+[disable]
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43965</ID>
+      <Description>"개박 스캔"</Description>
+      <Color>FF0000</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript Async="1">[enable]
+aobscan(dogAttackrange, 0A D7 23 3C 00 00 80 3F CD CC 4C 3E 35 FA 0E 3E 00 00 C8 42 00 40 1C 46 DB 0F C9 40 E7 E9 1D 42 CD CC 4C 3E 00 00 40 3F 00 00 00 3F 0A D7 23 3C 35)
+registersymbol(dogAttackrange)
+[disable]
+
+
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>43956</ID>
+          <Description>"10만으로 변경"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>dogAttackrange</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>43791</ID>
+          <Description>"개박 적용"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+dogAttackrange:
+db 40 50 C3 47   // 100000.5f
+
+{$lua}
+createNativeThread(function()
+  sleep(30)
+  local addr = getAddress('dogAttackrange')
+  writeBytes(addr, 0x0A, 0xD7, 0x23, 0x3C)
+end)
+{$asm}
+
+[DISABLE]
+dogAttackrange:
+db 0A D7 23 3C   // 0.01f
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43253</ID>
+      <Description>"마법고 어둠 룬작"</Description>
+      <Options moHideChildren="1"/>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>6</ID>
+          <Description>"0라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 A8 41
+pb+1C:
+db 00 00 70 41
+[disable]
+
+// 21 15
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"1라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 8A 42
+pb+1C:
+db 00 00 84 42
+[disable]
+
+// 69 66
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"1라운드 도착지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 8A 42
+pb+1C:
+db 00 00 C0 41
+[disable]
+
+// 69 24
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53316</ID>
+      <Description>"마법고 대지 룬작"</Description>
+      <Options moHideChildren="1"/>
+      <Color>800000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>53327</ID>
+          <Description>"대지 룬작 매크로"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53317</ID>
+          <Description>"1라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 08 43
+pb+1C:
+db 00 00 AC 42
+[disable]
+
+// 136 86
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53318</ID>
+          <Description>"1라운드 도착지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 D0 41
+pb+1C:
+db 00 00 AE 42
+[disable]
+
+// 26 87
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53320</ID>
+          <Description>"2라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 80 41
+pb+1C:
+db 00 00 60 41
+[disable]
+
+// 16 14
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53321</ID>
+          <Description>"2라운드 도착지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 E8 42
+pb+1C:
+db 00 00 C8 42
+[disable]
+
+// 116 100
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53322</ID>
+          <Description>"3라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 C8 41
+pb+1C:
+db 00 00 A8 41
+[disable]
+
+// 25 21
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53323</ID>
+          <Description>"3라운드 도착지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 28 43
+pb+1C:
+db 00 00 D8 41
+[disable]
+
+// 168 27
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53324</ID>
+          <Description>"4라운드 시작지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 60 41
+pb+1C:
+db 00 00 80 41
+[disable]
+
+// 14 16
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53326</ID>
+          <Description>"4라운드 도착지점"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 60 41
+pb+1C:
+db 00 00 00 41
+[disable]
+
+// 14 8
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99915</ID>
+      <Description>"교장 시험"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>99917</ID>
+          <Description>"바람 좌표이동"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 1E 43
+pb+1C:
+db 00 00 25 43
+[disable]
+
+// 158 165
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43255</ID>
+      <Description>"기초 시험"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>53311</ID>
+          <Description>"화염 마법 72 32"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 00 42
+[disable]
+
+// 72 32
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>43254</ID>
+          <Description>"바람 마법 72 40"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 20 42
+[disable]
+
+// 72 40
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53305</ID>
+          <Description>"자연 마법 50 64"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 48 42
+pb+1C:
+db 00 00 80 42
+[disable]
+
+// 50 64
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53306</ID>
+          <Description>"번개 마법 47 70"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 3C 42
+pb+1C:
+db 00 00 8C 42
+[disable]
+
+// 47 70
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53307</ID>
+          <Description>"얼음 마법 137 33"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 09 43
+pb+1C:
+db 00 00 04 42
+[disable]
+
+// 137 33
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53308</ID>
+          <Description>"빛 마법 75 20"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 96 42
+pb+1C:
+db 00 00 A0 41
+[disable]
+
+// 75 20
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53309</ID>
+          <Description>"대지 마법 64 144"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 80 42
+pb+1C:
+db 00 00 10 43
+[disable]
+
+// 64 144
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53310</ID>
+          <Description>"물 마법 75 92"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 96 42
+pb+1C:
+db 00 00 B8 42
+[disable]
+
+// 75 92
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53328</ID>
+          <Description>"어둠 마법 41 93"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[enable]
+pb+18:
+db 00 00 24 42
+pb+1C:
+db 00 00 BA 42
+[disable]
+
+// 41 93
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53330</ID>
+      <Description>"엘리베이터 단추 "</Description>
+      <Options moHideChildren="1"/>
+      <Color>000000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>53341</ID>
+          <Description>"진행전에 엘리스톤 3개 모아서 마리한테 말걸고 시작"</Description>
+          <Options moHideChildren="1"/>
+          <Color>000000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>99901</ID>
+              <Description>"스톤 3개 최적화 루트"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99902</ID>
+                  <Description>"1. 루다니아 로비"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 82 42
+pb+1C:
+db 00 00 C0 41
+
+// 65 24
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99903</ID>
+                  <Description>"2. 포션 카페"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 30 42
+pb+1C:
+db 00 00 80 41
+
+// 44 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99904</ID>
+                  <Description>"3. 도서관 균열들어가면 바로앞에 상자있음"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99911</ID>
+              <Description>"하얀꽃 단추1 / ( 엘베 타는곳 ) "</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53340</ID>
+              <Description>"고래 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>7</ID>
+                  <Description>"고래 단추1 / 천문대쪽 균열 문평던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 43
+pb+1C:
+db 00 00 CA 42
+
+// 132 101
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>8</ID>
+                  <Description>"고래단추 2 / 문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 CA 42
+pb+1C:
+db 00 00 01 43
+
+// 101 129
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9</ID>
+                  <Description>"고래단추3 / 바람마법 심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 82 42
+pb+1C:
+db 00 00 40 42
+
+// 65 48
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>10</ID>
+              <Description>"번개 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99910</ID>
+                  <Description>"번개 단추 1 / 제2 마나배터리 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>11</ID>
+                  <Description>"번개 단추 2 / 번개 심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 0C 42
+
+// 7 35
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>12</ID>
+                  <Description>"번개 단추3 / 복도 빨간 균열 문평던전2 (유령 구보)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 42
+pb+1C:
+db 00 00 1A 43
+
+// 52 154
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>13</ID>
+              <Description>"얼음 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>14</ID>
+                  <Description>"얼음 단추1 / 얼음심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A8 42
+pb+1C:
+db 00 00 48 42
+
+// 84 50
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>15</ID>
+                  <Description>"얼음단추2 / 얼음감옥 1호 ( 감옥 들어가서 오른쪽임 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 23 43
+pb+1C:
+db 00 00 C6 42
+
+// 163 99
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>16</ID>
+                  <Description>"얼음단추3 / 코스모스 로비 오른위 빨간 균열 문평 던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 1D 43
+pb+1C:
+db 00 00 B8 41
+
+// 157 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>17</ID>
+              <Description>"별 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>18</ID>
+                  <Description>"별단추1 / 자연학파 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 1C 42
+pb+1C:
+db 00 00 44 42
+
+// 39 49
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>19</ID>
+                  <Description>"별단추2 / 빛 심화 마지막층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 86 42
+pb+1C:
+db 00 00 10 42
+
+// 67 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>20</ID>
+                  <Description>"별단추3 / 제1 나선의창 던전1 ( 올라와서 바로 오른쪽 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B8 41
+pb+1C:
+db 00 00 1F 43
+
+// 23 159
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>21</ID>
+              <Description>"돌 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>22</ID>
+                  <Description>"돌단추1 /대지 심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 DE 42
+pb+1C:
+db 00 00 80 42
+
+// 111 64
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>23</ID>
+                  <Description>"돌단추2 / 사막 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 42
+pb+1C:
+db 00 00 70 41
+
+// 40 15
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"돌단추3 / 영겁의 사막 (어둠 입구)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 84 42
+pb+1C:
+db 00 00 3C 42
+
+// 66 47
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>25</ID>
+              <Description>"초승달 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>26</ID>
+                  <Description>"초승달 단추1 / (어둠학파 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 86 42
+pb+1C:
+db 00 00 03 43
+
+// 67 131
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>27</ID>
+                  <Description>"초승달 단추2 / (어둠학파 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 F8 41
+pb+1C:
+db 00 00 14 42
+
+// 31 37
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>28</ID>
+                  <Description>"초승달 단추3 / (어둠학파 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E2 42
+pb+1C:
+db 00 00 DE 42
+
+// 113 111
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>29</ID>
+              <Description>"태양 단추"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>30</ID>
+                  <Description>"태양 단추1 / 루컬&gt;버려진방&gt;지하실&gt;버려진 건물"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C0 42
+pb+1C:
+db 00 00 38 42
+
+// 96 46
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>31</ID>
+                  <Description>"태양 단추2 / 써니사이드"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 30 41
+pb+1C:
+db 00 00 60 42
+
+// 11 56
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>32</ID>
+                  <Description>"태양단추3 / 써니사이드 균열 ( 흔들리는 집 / 엘베옆 빨간균열)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 88 41
+pb+1C:
+db 00 00 10 41
+
+// 17 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53342</ID>
+      <Description>"엘리스톤"</Description>
+      <Options moHideChildren="1"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"진행 전 퀘스트 클리어"</Description>
+          <Options moHideChildren="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>53343</ID>
+              <Description>"1. 도서관 하린 - 화염 심화 보스 노피격 클리어"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53344</ID>
+              <Description>"2. 루컬 민시몬 - 자연 -3 지팡이 장착후 자연 심화 클리어"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 54 42
+pb+1C:
+db 00 00 E0 41
+
+// 53, 28
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53345</ID>
+              <Description>"3. 서쪽정원 우렌 - 오바바 노데스"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 92 42
+pb+1C:
+db 00 00 6C 42
+
+// 73, 59
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>53346</ID>
+          <Description>"엘리스톤 위치"</Description>
+          <Options moHideChildren="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>53347</ID>
+              <Description>"1. 천문대 비밀상자"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 18 42
+pb+1C:
+db 00 00 20 42
+
+// 38, 40
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53348</ID>
+              <Description>"2. 천문대 가는길 일반균열&gt;왜곡된 차원의 하늘길 상자"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 0C 42
+
+// 7, 35
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53349</ID>
+              <Description>"3. 왜곡된 차원의 구름다리"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 3C 42
+pb+1C:
+db 00 00 9A 42
+
+// 47, 77
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53351</ID>
+              <Description>"4. 도서관 균열들어가면 바로앞에 상자있음"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53352</ID>
+              <Description>"5. 도서관 균열 지나서 문평던전2"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 BC 42
+
+// 72, 94
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53353</ID>
+              <Description>"6. 포션 카페"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 30 42
+pb+1C:
+db 00 00 80 41
+
+// 44, 16
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53354</ID>
+              <Description>"7. 동쪽정원 문평던전3"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 20 41
+
+// 43, 10
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53355</ID>
+              <Description>"8. 동쪽정원 루나빗 땅굴"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 E0 41
+
+// 28, 28
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53356</ID>
+              <Description>"9. 동쪽정원 루니빗 땅굴 츄츄의 은신처"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B8 41
+pb+1C:
+db 00 00 E0 41
+
+// 23, 28
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53357</ID>
+              <Description>"10. 루다니아 로비"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 82 42
+pb+1C:
+db 00 00 C0 41
+
+// 65, 24
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53358</ID>
+              <Description>"11. 지식의 동굴 &gt; 동굴 깊숙한곳 &gt; 왼쪽으로 쭉 가면 균열"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 4C 42
+pb+1C:
+db 00 00 A8 41
+
+// 51, 21
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53350</ID>
+              <Description>"12. 루나 컬렉션"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C2 42
+pb+1C:
+db 00 00 70 42
+
+// 97, 60
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53359</ID>
+              <Description>"13. 루컬 &gt; 버려진방 &gt; 지하창고 &gt; 지하실 &gt; 균열"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 40 41
+
+// 33, 12
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53360</ID>
+              <Description>"14. 작은 온실 바로 옆 상자"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53361</ID>
+              <Description>"15. 굴뚝 오른쪽 균열"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 A8 41
+
+// 28, 21
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53362</ID>
+              <Description>"16. 카오스 로비"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 F8 41
+pb+1C:
+db 00 00 A0 41
+
+// 31, 20
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53363</ID>
+              <Description>"17. 왜곡된 차원의 회로 (마나배터리 실험실 가는길)"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 60 41
+
+// 22, 14
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53364</ID>
+              <Description>"18. 론다옆 석상&gt;스테츄&gt;고대마법 보관소&gt;시들어버린 나무"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 94 42
+
+// 72, 74
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53365</ID>
+              <Description>"19. 론다옆 석상&gt;스테츄&gt;고대마법 보관소&gt;꺾인 날개 2층"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 B8 41
+
+// 20, 23
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53366</ID>
+              <Description>"20. 론다옆 석상&gt;스테츄&gt;고대마법 보관소&gt;꺼져가는 불씨 1층"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 98 41
+
+// 22, 19
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53367</ID>
+              <Description>"21. 얼음감옥의 막령 (마지막방)"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2E 43
+pb+1C:
+db 00 00 A8 42
+
+// 174, 84
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53368</ID>
+              <Description>"22. 얼음심화 2층"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 0C 43
+pb+1C:
+db 00 00 E8 41
+
+// 140, 29
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53369</ID>
+              <Description>"23. 제1 나선의창 4인의 시련"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 1F 43
+
+// 27, 159
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53370</ID>
+              <Description>"24. 엄지훈 대지 마법 학습자격 시험장 왼쪽 관문 클리어 보상"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53371</ID>
+              <Description>"25. 어둠 심화"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 7C 42
+pb+1C:
+db 00 00 2C 42
+
+// 63, 43
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53372</ID>
+              <Description>"26. 진실의 복도 &gt; 비밀 &gt; 파란균열"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 30 41
+
+// 20, 11
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53373</ID>
+              <Description>"27. 진실의 복도 &gt; 절망 &gt; 수치스러움"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 58 42
+pb+1C:
+db 00 00 CC 42
+
+// 54, 102
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53374</ID>
+              <Description>"28. 진실의복도 &gt; 우물 &gt; 좌절스러움"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 78 42
+pb+1C:
+db 00 00 DE 42
+
+// 62, 111
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>33</ID>
+              <Description>"29. 내방 &gt; 빛바랜 방 쭉 이동하면 상자 있음"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1000</ID>
+      <Description>"교장 시험 재료"</Description>
+      <Options moHideChildren="1"/>
+      <Color>000000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>99912</ID>
+          <Description>"진행전에 무조건 유루미 퀘 꺠야함"</Description>
+          <Options moHideChildren="1"/>
+          <Color>000000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1100</ID>
+              <Description>"잿빛"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1101</ID>
+                  <Description>"잿빛1 / 화염의 전당 강아율 위"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1102</ID>
+                  <Description>"잿빛2 / 화염 심화 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1103</ID>
+                  <Description>"잿빛3 / 서쪽정원 균열 입구/ 퍼즐 클리어 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 A4 42
+
+// 33 82
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1104</ID>
+                  <Description>"잿빛4 / 루나 컬렉션 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 FC 42
+pb+1C:
+db 00 00 40 42
+
+// 126 48
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99913</ID>
+                  <Description>"잿빛5 / 루나컬렉션 균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 28 42
+pb+1C:
+db 00 00 B6 42
+
+// 42 91
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1106</ID>
+                  <Description>"잿빛6 / 왜곡된 차원의 복도 ( 루나디아 로비 엘베 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 28 42
+pb+1C:
+db 00 00 F8 41
+
+// 42 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1107</ID>
+                  <Description>"잿빛7 / 왜곡된 차원의 복도&gt;문평던전1 마지막 층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B8 42
+pb+1C:
+db 00 00 10 41
+
+// 92 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1108</ID>
+                  <Description>"잿빛8 / 왜곡된 차원의 복도&gt;문평던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D0 42
+pb+1C:
+db 00 00 40 41
+
+// 104 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1109</ID>
+                  <Description>"잿빛9 / 왜곡된 차원의 복도&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 12 43
+pb+1C:
+db 00 00 96 42
+
+// 146 75
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1110</ID>
+                  <Description>"잿빛10 / 교장실 입구 균열 (클리어 보상)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 41
+pb+1C:
+db 00 00 F8 41
+
+// 10 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1200</ID>
+              <Description>"태풍"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1201</ID>
+                  <Description>"태풍1 / 왜곡된 차원의 징검다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 18 42
+pb+1C:
+db 00 00 C0 41
+
+// 38 24
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1202</ID>
+                  <Description>"태풍2 / 바람의 둥지 송현우 위"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1203</ID>
+                  <Description>"태풍3 / 바람 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1204</ID>
+                  <Description>"태풍4 / 발코니 균열 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 D8 41
+
+// 9 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1205</ID>
+                  <Description>"태풍5 / 고래 선착장 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 14 42
+pb+1C:
+db 00 00 80 41
+
+// 37 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1206</ID>
+                  <Description>"태풍6 / 천문대 가는길&gt;오른쪽 균열&gt;문평던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 03 43
+pb+1C:
+db 00 00 CC 42
+
+// 131 102
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1207</ID>
+                  <Description>"태풍7 / 천문대 가는길&gt;오른쪽 균열&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 24 43
+pb+1C:
+db 00 00 E8 41
+
+// 164 29
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1208</ID>
+                  <Description>"태풍8 / 꼭대기층 로비&gt;항아리마을"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 41
+pb+1C:
+db 00 00 30 41
+
+// 8 11
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1209</ID>
+                  <Description>"태풍9 / 폭포수 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 44 42
+
+// 12 49
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1210</ID>
+                  <Description>"태풍10 / 왜곡된 차원의 동굴"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 54 42
+pb+1C:
+db 00 00 10 42
+
+// 53 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1300</ID>
+              <Description>"영혼"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1301</ID>
+                  <Description>"영혼1 / 동쪽입구 균열입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 08 42
+pb+1C:
+db 00 00 20 41
+
+// 34 10
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1307</ID>
+                  <Description>"영혼7 / 왜곡된 차원의 오솔길&gt;문평&gt;던전1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 B0 41
+
+// 43 22
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1308</ID>
+                  <Description>"영혼8 / 왜곡된 차원의 오솔길&gt;문평&gt;던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 58 42
+pb+1C:
+db 00 00 00 42
+
+// 54 32
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1309</ID>
+                  <Description>"영혼9 / 왜곡된 차원의 오솔길&gt;문평&gt;던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 80 41
+
+// 12 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1302</ID>
+                  <Description>"영혼2 / 동쪽정원 균열입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 9E 42
+pb+1C:
+db 00 00 F8 41
+
+// 79 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1303</ID>
+                  <Description>"영혼3 / 동쪽정원 나무 옆 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 88 42
+pb+1C:
+db 00 00 00 41
+
+// 68 8
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1304</ID>
+                  <Description>"영혼4 / 자연 학파 입구 아래 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A8 41
+pb+1C:
+db 00 00 F0 41
+
+// 21 30
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1305</ID>
+                  <Description>"영혼5 / 작은 온실 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 08 42
+pb+1C:
+db 00 00 60 41
+
+// 34 14
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1306</ID>
+                  <Description>"영혼6 / 자연 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99914</ID>
+                  <Description>"영혼10 / 도서관&gt; 균열 &gt;문평 던전3"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1400</ID>
+              <Description>"마나배터리"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1401</ID>
+                  <Description>"배터리1 / 왜곡된 차원의 옛길 (써니사이드 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 10 41
+
+// 27 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1402</ID>
+                  <Description>"배터리2 / 카오스 플로어 가는길 (번개 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E8 41
+pb+1C:
+db 00 00 A8 41
+
+// 29 21
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1407</ID>
+                  <Description>"배터리3 / 카오스 로비"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 42
+pb+1C:
+db 00 00 B0 41
+
+// 48 22
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1406</ID>
+                  <Description>"배터리4 / 복도"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 A0 41
+
+// 43 20
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1405</ID>
+                  <Description>"배터리5 / 기계실"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 40 41
+
+// 12 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1408</ID>
+                  <Description>"배터리6 / 기계실&gt;번개문평 1번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 16 43
+pb+1C:
+db 00 00 D8 42
+
+// 150 108
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1409</ID>
+                  <Description>"배터리7 / 기계실&gt;번개문평 2번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 98 41
+pb+1C:
+db 00 00 98 41
+
+// 19 19
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1410</ID>
+                  <Description>"배터리8 / 기계실&gt;번개문평 3번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D0 41
+pb+1C:
+db 00 00 7E 42
+
+// 26 63
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1412</ID>
+                  <Description>"배터리9 / 번개의 정거장"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 10 42
+
+// 12 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1411</ID>
+                  <Description>"배터리10 / 번개 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1403</ID>
+                  <Description>"배터리11 / 빙결의 길 상자1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 42
+pb+1C:
+db 00 00 10 42
+
+// 32 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1404</ID>
+                  <Description>"배터리12 / 빙결의길 상자2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 8A 42
+pb+1C:
+db 00 00 D0 41
+
+// 69 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1500</ID>
+              <Description>"혹한의 결정"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1501</ID>
+                  <Description>"혹한1 / 왜곡된 차원의 징검다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 C8 41
+
+// 12 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1503</ID>
+                  <Description>"혹한2 / 코스모스 로비&gt;균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 34 42
+pb+1C:
+db 00 00 38 42
+
+// 45 46
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1504</ID>
+                  <Description>"혹한3 / 코스모스 로비 빨간 균열 ( 로비 오른위)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 D8 41
+
+// 22 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1505</ID>
+                  <Description>"혹한4 / 코스모스 로비 오른위 빨간균열&gt;문평던전1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 0A 43
+pb+1C:
+db 00 00 54 42
+
+// 138 53
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1506</ID>
+                  <Description>"혹한5 / 코스모스 로비 빨간균열&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 70 42
+pb+1C:
+db 00 00 D8 41
+
+// 60 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1502</ID>
+                  <Description>"혹한6 / 얼음학파 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 42
+pb+1C:
+db 00 00 58 42
+
+// 40 54
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1507</ID>
+                  <Description>"혹한7 / 얼음감옥1호"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B2 42
+pb+1C:
+db 00 00 20 42
+
+// 89 40
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1508</ID>
+                  <Description>"혹한8 / 얼음감옥 로비&gt;빨간균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 4C 42
+pb+1C:
+db 00 00 20 42
+
+// 51 40
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1509</ID>
+                  <Description>"혹한9 / 얼음감옥2호(1)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 F2 42
+pb+1C:
+db 00 00 0A 43
+
+// 121 138
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1510</ID>
+                  <Description>"혹한10 / 얼음감옥2호(2)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 21 43
+pb+1C:
+db 00 00 40 41
+
+// 161 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1511</ID>
+                  <Description>"혹한11 / 얼음의 심장( 우연 위 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 40 41
+
+// 13 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1512</ID>
+                  <Description>"혹한12 / 얼음 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1700</ID>
+              <Description>"루나디움 원석"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1701</ID>
+                  <Description>"원석1 / 대지의 협곡&gt;파란 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 B8 41
+
+// 20 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1702</ID>
+                  <Description>"원석2 / 대지의 협곡 필드 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 5C 42
+pb+1C:
+db 00 00 B8 41
+
+// 55 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1703</ID>
+                  <Description>"원석3 / 엄지훈 수련방 상자 (들어가면 바로있음)"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1704</ID>
+                  <Description>"원석4 / 수련방 왼쪽방 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1705</ID>
+                  <Description>"원석5 / 수련방 오른방 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1706</ID>
+                  <Description>"원석6 / 대지 심화 1층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 90 41
+
+// 7 18
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1707</ID>
+                  <Description>"원석7 / 대지 심화 마지막층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 43
+pb+1C:
+db 00 00 4C 42
+
+// 128 51
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1708</ID>
+                  <Description>"원석8 / 대지 심화 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1709</ID>
+                  <Description>"원석9 / 대지 심화 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 82 42
+pb+1C:
+db 00 00 1C 42
+
+// 65 39
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1710</ID>
+                  <Description>"원석10 / 파이터 클럽"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 98 41
+pb+1C:
+db 00 00 34 42
+
+// 19 45
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1711</ID>
+                  <Description>"원석11 / 복도1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 80 41
+pb+1C:
+db 00 00 50 41
+
+// 16 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1712</ID>
+                  <Description>"원석12 / 복도2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 74 42
+pb+1C:
+db 00 00 C8 41
+
+// 61 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1713</ID>
+                  <Description>"원석13 / 복도&gt;파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 10 41
+
+// 33 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1714</ID>
+                  <Description>"원석14 / 사막 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 42
+pb+1C:
+db 00 00 60 41
+
+// 40 14
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1715</ID>
+                  <Description>"원석15 / 영겁의 사막"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 70 41
+
+// 13 15
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1600</ID>
+              <Description>"신성한 팬던트"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1601</ID>
+                  <Description>"신성1 / 왜곡된 차원의 구름다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 04 42
+
+// 9 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1602</ID>
+                  <Description>"신성2 / 고래선착장&gt;신단아&gt;고래에 대하여&gt;고래화물선"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 14 42
+
+// 22 37
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1603</ID>
+                  <Description>"신성3 / 고대 마법 보관소입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 41
+pb+1C:
+db 00 00 50 41
+
+// 8 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1604</ID>
+                  <Description>"신성4 / 첫번째 심판의 다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 41
+pb+1C:
+db 00 00 20 42
+
+// 10 40
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1605</ID>
+                  <Description>"신성5 / 빛의로비&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 D0 41
+
+// 28 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1612</ID>
+                  <Description>"신성6 / 제1 나선의 창&gt;2인의 시련"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C8 41
+pb+1C:
+db 00 00 20 43
+
+// 25 160
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1606</ID>
+                  <Description>"신성7 / 제2 나선의 창&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A8 41
+pb+1C:
+db 00 00 BE 42
+
+// 21 95
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1607</ID>
+                  <Description>"신성8 / 제2 나선의 창&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 5C 42
+
+// 28 55
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1608</ID>
+                  <Description>"신성9 / 빛의 첨탑 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 10 42
+
+// 13 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1609</ID>
+                  <Description>"신성10 / 빛의 첨탑"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 0C 42
+
+// 12 35
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1610</ID>
+                  <Description>"신성11 / 빛 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1611</ID>
+                  <Description>"신성12 / 론다옆 동상&gt;스테츄&gt;왜곡된 차원의 고대수로"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 86 42
+pb+1C:
+db 00 00 44 42
+
+// 67 49
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1800</ID>
+              <Description>"속삭이는 찻잔"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1801</ID>
+                  <Description>"찻잔1 / 바다 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 41
+pb+1C:
+db 00 00 B4 42
+
+// 18 90
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1802</ID>
+                  <Description>"찻잔2 / 물의 요람"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 E8 41
+
+// 7 29
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1803</ID>
+                  <Description>"찻잔3 / 물심화 1층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 18 42
+pb+1C:
+db 00 00 68 42
+
+// 38 58
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1804</ID>
+                  <Description>"찻잔4 / 물심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 00 42
+
+// 12 32
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1805</ID>
+                  <Description>"찻잔5 / 물심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1806</ID>
+                  <Description>"찻잔6 / 물 보충수업"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D6 42
+pb+1C:
+db 00 00 D8 41
+
+// 107 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1807</ID>
+                  <Description>"찻잔7 / 바다&gt;섬"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 B0 41
+
+// 33 22
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1808</ID>
+                  <Description>"찻잔8 / 바다&gt;섬&gt;균열&gt;항아리 바다"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 1C 42
+pb+1C:
+db 00 00 24 42
+
+// 39 41
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1809</ID>
+                  <Description>"찻잔9 / 바다&gt;쌍둥이 돌멩이 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 88 42
+pb+1C:
+db 00 00 48 42
+
+// 68 50
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1810</ID>
+                  <Description>"찻잔10 / 바다&gt;찻잔9&gt;해저동굴"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 E0 41
+
+// 9 28
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1811</ID>
+                  <Description>"찻잔11 / 해저동굴&gt;보물섬 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C0 41
+pb+1C:
+db 00 00 1C 42
+
+// 24 39
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1812</ID>
+                  <Description>"찻잔12 / 보물섬"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 42
+pb+1C:
+db 00 00 C8 41
+
+// 36 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1813</ID>
+                  <Description>"찻잔13 / 보물섬 지하 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 58 42
+pb+1C:
+db 00 00 50 41
+
+// 54 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1814</ID>
+                  <Description>"찻잔14 / 폭포수 상류"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 80 41
+
+// 27 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1815</ID>
+                  <Description>"찻잔15 / 폭포수 상류 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 70 41
+
+// 12 15
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1900</ID>
+              <Description>"저주받은 브로치"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1901</ID>
+                  <Description>"브로치1 / 거짓된 복도 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E8 41
+pb+1C:
+db 00 00 50 41
+
+// 29 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1914</ID>
+                  <Description>"브로치2 / 거짓의복도&gt;오른쪽 파란균열&gt;루나빗 입구&gt;호텔루나빗"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 5C 42
+pb+1C:
+db 00 00 04 42
+
+// 55 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1902</ID>
+                  <Description>"브로치3 / 어둠학파 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 92 42
+pb+1C:
+db 00 00 98 42
+
+// 73 76
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1908</ID>
+                  <Description>"브로치4 / 우물"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 80 41
+
+// 20 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1909</ID>
+                  <Description>"브로치5 / 우물&gt;좌절스러움"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 F2 42
+
+// 72 121
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1910</ID>
+                  <Description>"브로치6 / 좌절스러움 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 CE 42
+pb+1C:
+db 00 00 AC 42
+
+// 103 86
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1911</ID>
+                  <Description>"브로치7 / 절망"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 0C 42
+
+// 22 35
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1912</ID>
+                  <Description>"브로치8 / 절망&gt;수치스러움"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 BE 42
+pb+1C:
+db 00 00 D0 41
+
+// 95 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1913</ID>
+                  <Description>"브로치9 / 수치스러움 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 64 42
+pb+1C:
+db 00 00 CC 42
+
+// 57 102
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1903</ID>
+                  <Description>"브로치10 / 진심의 복도"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 60 41
+pb+1C:
+db 00 00 F0 41
+
+// 14 30
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1904</ID>
+                  <Description>"브로치11 / 어둠심화 1층 상자1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 42
+pb+1C:
+db 00 00 2C 42
+
+// 80 43
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1905</ID>
+                  <Description>"브로치12 / 어둠심화 1층 상자2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 43
+pb+1C:
+db 00 00 D8 42
+
+// 128 108
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1906</ID>
+                  <Description>"브로치13 / 어둠심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1907</ID>
+                  <Description>"브로치14 / 어둠심화 보충 수업"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 80 41
+
+// 43 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1915</ID>
+                  <Description>"브로치15 / 지식의 동굴 입구&gt;지식의동굴 깊숙한곳 입구 좌표"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 04 42
+
+// 13 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1916</ID>
+                  <Description>"브로치15-2 / 지식의 동굴 깊숙한곳 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B4 42
+pb+1C:
+db 00 00 80 41
+
+// 90 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>99918</ID>
+      <Description>"교장시험 재료 최적화 버전"</Description>
+      <Options moHideChildren="1"/>
+      <Color>000000</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1001</ID>
+          <Description>"진행전에 무조건 유루미 퀘 꺠야함"</Description>
+          <Options moHideChildren="1"/>
+          <Color>000000</Color>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>99919</ID>
+              <Description>"화염의 전당"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99920</ID>
+                  <Description>"잿빛1 / 화염의 전당 강아율 위"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99921</ID>
+                  <Description>"잿빛2 / 화염 심화 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99922</ID>
+              <Description>"서쪽정원 입구"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99923</ID>
+                  <Description>"잿빛3 / 서쪽정원 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 A4 42
+
+// 33 82
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99924</ID>
+                  <Description>"태풍9 / 폭포수 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 44 42
+
+// 12 49
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99925</ID>
+                  <Description>"태풍10 / 왜곡된 차원의 동굴"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 54 42
+pb+1C:
+db 00 00 10 42
+
+// 53 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99926</ID>
+                  <Description>"브로치15 / 지식의 동굴 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 04 42
+
+// 13 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99927</ID>
+                  <Description>"브로치15-2 / 지식의 동굴 깊숙한곳 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B4 42
+pb+1C:
+db 00 00 80 41
+
+// 90 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99928</ID>
+              <Description>"루나컬렉션 가는길"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99929</ID>
+                  <Description>"잿빛4 / 루나 컬렉션 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 FC 42
+pb+1C:
+db 00 00 40 42
+
+// 126 48
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99930</ID>
+              <Description>"루나컬렉션 입구"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99931</ID>
+                  <Description>"잿빛5 / 루나컬렉션 균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 28 42
+pb+1C:
+db 00 00 B6 42
+
+// 42 91
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99932</ID>
+              <Description>"써니사이드 가는길"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99933</ID>
+                  <Description>"배터리1 / 왜곡된 차원의 옛길 (써니사이드 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 10 41
+
+// 27 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99934</ID>
+              <Description>"왜곡된 차원의 복도 / 루나디아 로비"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99935</ID>
+                  <Description>"잿빛6 / 왜곡된 차원의 복도 ( 루나디아 로비 엘베 가는길 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 28 42
+pb+1C:
+db 00 00 F8 41
+
+// 42 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99936</ID>
+                  <Description>"잿빛7 / 왜곡된 차원의 복도&gt;문평던전1 마지막 층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B8 42
+pb+1C:
+db 00 00 10 41
+
+// 92 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99937</ID>
+                  <Description>"잿빛8 / 왜곡된 차원의 복도&gt;문평던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D0 42
+pb+1C:
+db 00 00 40 41
+
+// 104 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99938</ID>
+                  <Description>"잿빛9 / 왜곡된 차원의 복도&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 12 43
+pb+1C:
+db 00 00 96 42
+
+// 146 75
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99980</ID>
+                  <Description>"영혼10 / 도서관&gt; 균열 &gt;문평 던전3"</Description>
+                  <Options moHideChildren="1"/>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99940</ID>
+                  <Description>"신성3 / 고대 마법 보관소입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 41
+pb+1C:
+db 00 00 50 41
+
+// 8 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99941</ID>
+              <Description>"물"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99942</ID>
+                  <Description>"찻잔1 / 바다 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 41
+pb+1C:
+db 00 00 B4 42
+
+// 18 90
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99943</ID>
+                  <Description>"찻잔7 / 바다&gt;섬"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 B8 41
+
+// 33 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99981</ID>
+                  <Description>"찻잔8 / 바다&gt;섬&gt;균열&gt;항아리 바다"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 1C 42
+pb+1C:
+db 00 00 24 42
+
+// 39 41
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99944</ID>
+                  <Description>"찻잔9 / 바다&gt;쌍둥이 돌멩이 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 88 42
+pb+1C:
+db 00 00 48 42
+
+// 68 50
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99945</ID>
+                  <Description>"찻잔10 / 바다&gt;찻잔9&gt;해저동굴"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 E0 41
+
+// 9 28
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99946</ID>
+                  <Description>"찻잔11 / 해저동굴&gt;보물섬 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C0 41
+pb+1C:
+db 00 00 1C 42
+
+// 24 39
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99947</ID>
+                  <Description>"찻잔12 / 보물섬"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 42
+pb+1C:
+db 00 00 C8 41
+
+// 36 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99948</ID>
+                  <Description>"찻잔13 / 보물섬 지하 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 58 42
+pb+1C:
+db 00 00 50 41
+
+// 54 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99951</ID>
+                  <Description>"찻잔2 / 물의 요람"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 E8 41
+
+// 7 29
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99952</ID>
+                  <Description>"찻잔3 / 물심화 1층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 18 42
+pb+1C:
+db 00 00 68 42
+
+// 38 58
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99953</ID>
+                  <Description>"찻잔4 / 물심화 2층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 00 42
+
+// 12 32
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99954</ID>
+                  <Description>"찻잔5 / 물심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99955</ID>
+                  <Description>"찻잔6 / 물 보충수업"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D6 42
+pb+1C:
+db 00 00 D8 41
+
+// 107 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99949</ID>
+                  <Description>"찻잔14 / 폭포수 상류"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 80 41
+
+// 27 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99950</ID>
+                  <Description>"찻잔15 / 폭포수 상류 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 70 41
+
+// 12 15
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99956</ID>
+                  <Description>"심판의 다리"</Description>
+                  <Options moHideChildren="1"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>17151</ID>
+                      <Description>"신성4 / 첫번째 심판의 다리"</Description>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 41
+pb+1C:
+db 00 00 20 42
+
+// 10 40
+[DISABLE]
+</AssemblerScript>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99957</ID>
+              <Description>"빛"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99958</ID>
+                  <Description>"신성5 / 빛의로비&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 D0 41
+
+// 28 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99959</ID>
+                  <Description>"신성6 / 제1 나선의 창&gt;2인의 시련"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 C8 41
+pb+1C:
+db 00 00 20 43
+
+// 25 160
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99960</ID>
+                  <Description>"신성7 / 제2 나선의 창&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A8 41
+pb+1C:
+db 00 00 BE 42
+
+// 21 95
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99961</ID>
+                  <Description>"신성8 / 제2 나선의 창&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 41
+pb+1C:
+db 00 00 5C 42
+
+// 28 55
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99962</ID>
+                  <Description>"신성9 / 빛의 첨탑 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 10 42
+
+// 13 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99963</ID>
+                  <Description>"신성10 / 빛의 첨탑"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 0C 42
+
+// 12 35
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99964</ID>
+                  <Description>"신성11 / 빛 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>99965</ID>
+              <Description>"어둠"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>99966</ID>
+                  <Description>"브로치1 / 거짓된 복도 파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E8 41
+pb+1C:
+db 00 00 50 41
+
+// 29 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99979</ID>
+                  <Description>"브로치14 / 거짓의복도&gt;오른쪽 파란균열&gt;루나빗 입구&gt;호텔루나빗"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 5C 42
+pb+1C:
+db 00 00 04 42
+
+// 55 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99967</ID>
+                  <Description>"브로치2 / 어둠학파 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 92 42
+pb+1C:
+db 00 00 98 42
+
+// 73 76
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99968</ID>
+                  <Description>"브로치3 / 우물"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 80 41
+
+// 20 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99969</ID>
+                  <Description>"브로치4 / 우물&gt;좌절스러움1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 90 42
+pb+1C:
+db 00 00 F2 42
+
+// 72 121
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99970</ID>
+                  <Description>"브로치5 / 좌절스러움2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 CE 42
+pb+1C:
+db 00 00 AC 42
+
+// 103 86
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99971</ID>
+                  <Description>"브로치6 / 절망"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 0C 42
+
+// 22 35
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99972</ID>
+                  <Description>"브로치7 / 절망&gt;수치스러움"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 BE 42
+pb+1C:
+db 00 00 D0 41
+
+// 95 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99973</ID>
+                  <Description>"브로치8 / 수치스러움 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 64 42
+pb+1C:
+db 00 00 CC 42
+
+// 57 102
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99974</ID>
+                  <Description>"브로치9 / 진심의 복도"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 60 41
+pb+1C:
+db 00 00 F0 41
+
+// 14 30
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99975</ID>
+                  <Description>"브로치10 / 어둠심화 1층 상자1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 42
+pb+1C:
+db 00 00 2C 42
+
+// 80 43
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99976</ID>
+                  <Description>"브로치11 / 어둠심화 1층 상자2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 43
+pb+1C:
+db 00 00 D8 42
+
+// 128 108
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99977</ID>
+                  <Description>"브로치12 / 어둠심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>99978</ID>
+                  <Description>"브로치13 / 어둠심화 보충 수업"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 80 41
+
+// 43 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2000</ID>
+              <Description>"왜곡된 차원의 징검다리"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2001</ID>
+                  <Description>"태풍1 / 왜곡된 차원의 징검다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 18 42
+pb+1C:
+db 00 00 C0 41
+
+// 38 24
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2002</ID>
+                  <Description>"혹한1 / 왜곡된 차원의 징검다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 C8 41
+
+// 12 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2200</ID>
+              <Description>"발코니"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2201</ID>
+                  <Description>"태풍4 / 발코니 균열 보상"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 D8 41
+
+// 9 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2202</ID>
+                  <Description>"태풍5 / 고래 선착장 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 14 42
+pb+1C:
+db 00 00 80 41
+
+// 37 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2203</ID>
+                  <Description>"신성2 / 고래선착장&gt;신단아&gt;고래에 대하여&gt;고래화물선"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 14 42
+
+// 22 37
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2204</ID>
+                  <Description>"신성1 / 왜곡된 차원의 구름다리"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 10 41
+pb+1C:
+db 00 00 04 42
+
+// 9 33
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2300</ID>
+              <Description>"바람의 둥지"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2302</ID>
+                  <Description>"태풍2 / 바람의 둥지 송현우 위"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2303</ID>
+                  <Description>"태풍3 / 바람 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2400</ID>
+              <Description>"꼭대기층"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2401</ID>
+                  <Description>"태풍6 / 천문대 가는길&gt;오른쪽 균열&gt;문평던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 03 43
+pb+1C:
+db 00 00 CC 42
+
+// 131 102
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2402</ID>
+                  <Description>"태풍7 / 천문대 가는길&gt;오른쪽 균열&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 24 43
+pb+1C:
+db 00 00 E8 41
+
+// 164 29
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2403</ID>
+                  <Description>"태풍8 / 꼭대기층 로비&gt;항아리마을"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 41
+pb+1C:
+db 00 00 30 41
+
+// 8 11
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2100</ID>
+              <Description>"교장실입구"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2101</ID>
+                  <Description>"잿빛10 / 교장실 입구 균열 (클리어 보상)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 41
+pb+1C:
+db 00 00 F8 41
+
+// 10 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2500</ID>
+              <Description>"동쪽입구"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2501</ID>
+                  <Description>"영혼1 / 동쪽입구 균열입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 08 42
+pb+1C:
+db 00 00 20 41
+
+// 34 10
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2700</ID>
+              <Description>"왜곡된 차원의 오솔길"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2701</ID>
+                  <Description>"영혼7 / 왜곡된 차원의 오솔길&gt;문평&gt;던전1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 2C 42
+pb+1C:
+db 00 00 B0 41
+
+// 43 22
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2702</ID>
+                  <Description>"영혼8 / 왜곡된 차원의 오솔길&gt;문평&gt;던전2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 58 42
+pb+1C:
+db 00 00 00 42
+
+// 54 32
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2703</ID>
+                  <Description>"영혼9 / 왜곡된 차원의 오솔길&gt;문평&gt;던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 80 41
+
+// 12 16
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2600</ID>
+              <Description>"동쪽정원"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2502</ID>
+                  <Description>"영혼2 / 동쪽정원 균열입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 9E 42
+pb+1C:
+db 00 00 F8 41
+
+// 79 31
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2601</ID>
+                  <Description>"영혼3 / 동쪽정원 나무 옆 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 88 42
+pb+1C:
+db 00 00 00 41
+
+// 68 8
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2800</ID>
+              <Description>"자연학파"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2801</ID>
+                  <Description>"영혼6 / 자연 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2802</ID>
+                  <Description>"영혼4 / 자연 학파 입구 아래 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A8 41
+pb+1C:
+db 00 00 F0 41
+
+// 21 30
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2900</ID>
+              <Description>"작은온실"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2901</ID>
+                  <Description>"영혼5 / 작은 온실 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 08 42
+pb+1C:
+db 00 00 60 41
+
+// 34 14
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3000</ID>
+              <Description>"카오스 플로어"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3001</ID>
+                  <Description>"배터리2 / 카오스 플로어 가는길 (번개 가는길)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E8 41
+pb+1C:
+db 00 00 A8 41
+
+// 29 21
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3002</ID>
+                  <Description>"배터리6 / 카오스 로비"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 42
+pb+1C:
+db 00 00 B0 41
+
+// 48 22
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3003</ID>
+                  <Description>"신성12 / 론다옆 동상&gt;스테츄&gt;왜곡된 차원의 고대수로"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 86 42
+pb+1C:
+db 00 00 44 42
+
+// 67 49
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3100</ID>
+              <Description>"번개 정거장"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3101</ID>
+                  <Description>"배터리11 / 번개의 정거장"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 10 42
+
+// 12 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3102</ID>
+                  <Description>"배터리12 / 번개 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3200</ID>
+              <Description>"기계실"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3201</ID>
+                  <Description>"배터리7 / 기계실"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 40 41
+pb+1C:
+db 00 00 40 41
+
+// 12 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3202</ID>
+                  <Description>"배터리8 / 기계실&gt;번개문평 1번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 16 43
+pb+1C:
+db 00 00 D8 42
+
+// 150 108
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3203</ID>
+                  <Description>"배터리9 / 기계실&gt;번개문평 2번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 98 41
+pb+1C:
+db 00 00 98 41
+
+// 19 19
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3204</ID>
+                  <Description>"배터리10 / 기계실&gt;번개문평 3번"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 D0 41
+pb+1C:
+db 00 00 7E 42
+
+// 26 63
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3300</ID>
+              <Description>"빙결의 길"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3301</ID>
+                  <Description>"배터리3 / 빙결의 길 상자1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 42
+pb+1C:
+db 00 00 10 42
+
+// 32 36
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3302</ID>
+                  <Description>"배터리4 / 빙결의길 상자2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 8A 42
+pb+1C:
+db 00 00 D0 41
+
+// 69 26
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3400</ID>
+              <Description>"얼음학파 / 코스모스"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3402</ID>
+                  <Description>"혹한3 / 코스모스 로비&gt;빨간 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 34 42
+pb+1C:
+db 00 00 38 42
+
+// 45 46
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3403</ID>
+                  <Description>"혹한4 / 코스모스 로비 빨간 균열 ( 로비 오른위)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B0 41
+pb+1C:
+db 00 00 D8 41
+
+// 22 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3404</ID>
+                  <Description>"혹한5 / 코스모스 로비 오른위 빨간균열&gt;문평던전1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 0A 43
+pb+1C:
+db 00 00 54 42
+
+// 138 53
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3405</ID>
+                  <Description>"혹한6 / 코스모스 로비 빨간균열&gt;문평던전3"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 70 42
+pb+1C:
+db 00 00 D8 41
+
+// 60 27
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3401</ID>
+                  <Description>"혹한2 / 얼음학파 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 42
+pb+1C:
+db 00 00 58 42
+
+// 40 54
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3500</ID>
+              <Description>"얼음의 심장"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3501</ID>
+                  <Description>"혹한11 / 얼음의 심장( 우연 위 )"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 40 41
+
+// 13 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3502</ID>
+                  <Description>"혹한12 / 얼음 심화 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3600</ID>
+              <Description>"얼음감옥"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3601</ID>
+                  <Description>"혹한8 / 얼음감옥 로비&gt;빨간균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 4C 42
+pb+1C:
+db 00 00 20 42
+
+// 51 40
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3602</ID>
+                  <Description>"혹한7 / 얼음감옥1호"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 B2 42
+pb+1C:
+db 00 00 20 42
+
+// 89 40
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3603</ID>
+                  <Description>"혹한9 / 얼음감옥2호(1)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 F2 42
+pb+1C:
+db 00 00 0A 43
+
+// 121 138
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3604</ID>
+                  <Description>"혹한10 / 얼음감옥2호(2)"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 21 43
+pb+1C:
+db 00 00 40 41
+
+// 161 12
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>3700</ID>
+              <Description>"대지"</Description>
+              <Options moHideChildren="1"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>3701</ID>
+                  <Description>"원석1 / 대지의 협곡&gt;파란 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 A0 41
+pb+1C:
+db 00 00 B8 41
+
+// 20 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3702</ID>
+                  <Description>"원석2 / 대지의 협곡 필드 상자"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 5C 42
+pb+1C:
+db 00 00 B8 41
+
+// 55 23
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3703</ID>
+                  <Description>"원석3 / 엄지훈 수련방 상자 (들어가면 바로있음)"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3704</ID>
+                  <Description>"원석4 / 수련방 왼쪽방 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3705</ID>
+                  <Description>"원석5 / 수련방 오른방 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3706</ID>
+                  <Description>"원석6 / 대지 심화 1층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 E0 40
+pb+1C:
+db 00 00 90 41
+
+// 7 18
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3707</ID>
+                  <Description>"원석7 / 대지 심화 마지막층"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 00 43
+pb+1C:
+db 00 00 4C 42
+
+// 128 51
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3708</ID>
+                  <Description>"원석8 / 대지 심화 클리어 보상"</Description>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3709</ID>
+                  <Description>"원석9 / 대지 심화 균열"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 82 42
+pb+1C:
+db 00 00 1C 42
+
+// 65 39
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3710</ID>
+                  <Description>"원석10 / 파이터 클럽"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 98 41
+pb+1C:
+db 00 00 34 42
+
+// 19 45
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3711</ID>
+                  <Description>"원석11 / 복도1"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 80 41
+pb+1C:
+db 00 00 50 41
+
+// 16 13
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3712</ID>
+                  <Description>"원석12 / 복도2"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 74 42
+pb+1C:
+db 00 00 C8 41
+
+// 61 25
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3713</ID>
+                  <Description>"원석13 / 복도&gt;파란균열 입구"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 04 42
+pb+1C:
+db 00 00 10 41
+
+// 33 9
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3714</ID>
+                  <Description>"원석14 / 사막 가는길"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 20 42
+pb+1C:
+db 00 00 60 41
+
+// 40 14
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3715</ID>
+                  <Description>"원석15 / 영겁의 사막"</Description>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+pb+18:
+db 00 00 50 41
+pb+1C:
+db 00 00 70 41
+
+// 13 15
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>53304</ID>
+      <Description>"게임 연결"</Description>
+      <Color>808080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+OpenProcess("LdboxHeadless.exe")
+OpenProcess("NoxVMHandle.exe")
+OpenProcess("MEmuHeadless.exe")
+OpenProcess("LdVboxHeadless.exe")
+OpenProcess("HD-Player.exe")
+OpenProcess("Ld9boxHeadless.exe")
+
+[DISABLE]
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>-- 전역 변수 초기화
+if macroTimer2 then
+  macroTimer2.destroy()
+end
+
+macroTimer2 = createTimer()
+macroTimer2.Interval = 100
+macroTimer2.Enabled = false
+
+running2 = false
+roundsCompleted = {}
+firstRoundDetected = false
+startRound = -1
+
+-- 좌표 읽기 함수
+local function readPosition()
+  local posX = readFloat("pb+18")
+  local posY = readFloat("pb+1C")
+  if posX and posY then
+    return posX, posY
+  end
+  return nil, nil
+end
+
+-- 좌표 비교 함수 (오차범위 제거: 정확히 일치할 때만 true)
+local function checkCoordinatesExact(targetX, targetY)
+  local posX, posY = readPosition()
+  if not posX or not posY then
+    return false
+  end
+  return (posX == targetX) and (posY == targetY)
+end
+
+-- 좌표 쓰기(바이트로 정확히 기록)
+local function writePositionBytes(b1, b2, b3, b4, b5, b6, b7, b8)
+  writeBytes("pb+18", b1, b2, b3, b4)
+  writeBytes("pb+1C", b5, b6, b7, b8)
+end
+
+-- 1 라운드 처리: 1초 뒤 (26, 87)
+local function handleRound1()
+  local delay = createTimer()
+  delay.Interval = 1000
+  delay.OnTimer = function(t)
+    -- (26, 87) -&gt; 00 00 D0 41 | 00 00 AE 42
+    writePositionBytes(0x00, 0x00, 0xD0, 0x41, 0x00, 0x00, 0xAE, 0x42)
+    t.Enabled = false
+    t.destroy()
+  end
+  delay.Enabled = true
+end
+
+-- 2 라운드 처리: 1초 뒤 (116, 100)
+local function handleRound2()
+  local delay = createTimer()
+  delay.Interval = 1000
+  delay.OnTimer = function(t)
+    -- (116, 100) -&gt; 00 00 E8 42 | 00 00 C8 42
+    writePositionBytes(0x00, 0x00, 0xE8, 0x42, 0x00, 0x00, 0xC8, 0x42)
+    t.Enabled = false
+    t.destroy()
+  end
+  delay.Enabled = true
+end
+
+-- 3 라운드 처리: 1초 뒤 (168, 27)
+local function handleRound3()
+  local delay = createTimer()
+  delay.Interval = 1000
+  delay.OnTimer = function(t)
+    -- (168, 27) -&gt; 00 00 28 43 | 00 00 D8 41
+    writePositionBytes(0x00, 0x00, 0x28, 0x43, 0x00, 0x00, 0xD8, 0x41)
+    t.Enabled = false
+    t.destroy()
+  end
+  delay.Enabled = true
+end
+
+-- 4 라운드 처리: 1초 뒤 (14, 8)
+local function handleRound4()
+  local delay = createTimer()
+  delay.Interval = 1000
+  delay.OnTimer = function(t)
+    -- (14, 8) -&gt; 00 00 60 41 | 00 00 00 41
+    writePositionBytes(0x00, 0x00, 0x60, 0x41, 0x00, 0x00, 0x00, 0x41)
+    t.Enabled = false
+    t.destroy()
+  end
+  delay.Enabled = true
+end
+
+-- 라운드 감지 함수 (정확 일치)
+local function detectRound()
+  local roundCoords = {
+    {136.0, 86.0, 1, "1 라운드"}, -- 00 00 08 43 | 00 00 AC 42
+    {16.0, 14.0, 2, "2 라운드"},  -- 00 00 80 41 | 00 00 60 41
+    {25.0, 21.0, 3, "3 라운드"},  -- 00 00 C8 41 | 00 00 A8 41
+    {14.0, 16.0, 4, "4 라운드"},  -- 00 00 60 41 | 00 00 80 41
+  }
+
+  for _, data in ipairs(roundCoords) do
+    local x, y, roundNum = data[1], data[2], data[3]
+    if checkCoordinatesExact(x, y) then
+      if not firstRoundDetected then
+        firstRoundDetected = true
+        startRound = roundNum
+        for r = 1, roundNum - 1 do
+          roundsCompleted[r] = true
+        end
+      end
+
+      local lastKey = "last_" .. roundNum
+      local now = os.clock()
+      if not roundsCompleted[lastKey] or (now - roundsCompleted[lastKey] &gt;= 10) then
+        roundsCompleted[lastKey] = now
+        if roundNum == 1 then
+          handleRound1()
+        elseif roundNum == 2 then
+          handleRound2()
+        elseif roundNum == 3 then
+          handleRound3()
+        elseif roundNum == 4 then
+          handleRound4()
+          local resetTimer = createTimer()
+          resetTimer.Interval = 5000
+          resetTimer.OnTimer = function(t)
+            roundsCompleted = {}
+            firstRoundDetected = false
+            startRound = -1
+            t.Enabled = false
+            t.destroy()
+          end
+          resetTimer.Enabled = true
+        end
+      end
+      return true
+    end
+  end
+  return false
+end
+
+-- 메인 타이머
+macroTimer2.OnTimer = function()
+  if not running2 then return end
+  detectRound()
+end
+
+-- 기존 항목 찾기 (중복 방지)
+local addressList = getAddressList()
+local existingRecord = addressList.getMemoryRecordByDescription("대지 룬작 매크로")
+
+local scriptRec2
+if existingRecord then
+  scriptRec2 = existingRecord
+else
+  scriptRec2 = addressList.createMemoryRecord()
+  scriptRec2.Description = "대지 룬작 매크로"
+  scriptRec2.Type = vtAutoAssembler
+  scriptRec2.Script = [[
+[ENABLE]
+[DISABLE]
+]]
+end
+
+scriptRec2.OnActivate = function(mr, before, currentstate)
+  if running2 then return true end
+  running2 = true
+  roundsCompleted = {}
+  firstRoundDetected = false
+  startRound = -1
+  writeBytes("dogAttackrange", 0x0A, 0xD7, 0x23, 0x3C)
+  macroTimer2.setEnabled(true)
+  showMessage("대지 룬작 매크로 실행")
+  return true
+end
+
+scriptRec2.OnDeactivate = function(mr, before, currentstate)
+  if not running2 then return true end
+  running2 = false
+  macroTimer2.setEnabled(false)
+  writeBytes("dogAttackrange", 0x0A, 0xD7, 0x23, 0x3C)
+  roundsCompleted = {}
+  firstRoundDetected = false
+  startRound = -1
+  showMessage("대지 룬작 매크로 중단")
+  return true
+end
+</LuaScript>
+</CheatTable>
