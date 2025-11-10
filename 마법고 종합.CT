@@ -27,7 +27,7 @@
   local addr = tonumber(results[i], 16)
   -- 첫 번째 주소를 가져옴
 
-  local checkaddr = addr - 0x614
+  local checkaddr = addr - 0x61C
   -- 현재 주소에서 -0x614에 있는 주소계산
 
   local val = readFloat(checkaddr)
@@ -36,7 +36,7 @@
   if val == -1.0 then
   -- 만약 읽어온 float값이 -1.0이라면, 조건을 만족하는 주소
 
-  pb = addr - 0x8B0
+  pb = addr - 0x8B8
   -- 조건을 만족한 주소에서 -0x894 한 주소를 전역변수 pb에 저장
 
   PlayerX = pb + 0x18
@@ -91,18 +91,6 @@ db 00
 [disable]
 pb+751:
 db 01
-
-</AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>53334</ID>
-      <Description>"즉시도착"</Description>
-      <Color>FF00FF</Color>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[enable]
-pb+18-54:
-db FF FF FF FF
-[disable]
 
 </AssemblerScript>
     </CheatEntry>
@@ -794,16 +782,16 @@ db 00 00 3C 42
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
-                  <ID>26</ID>
+                  <ID>28</ID>
                   <Description>"초승달 단추1 / (어둠학파 가는길)"</Description>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 pb+18:
-db 00 00 86 42
+db 00 00 E2 42
 pb+1C:
-db 00 00 03 43
+db 00 00 DE 42
 
-// 67 131
+// 113 111
 [DISABLE]
 </AssemblerScript>
                 </CheatEntry>
@@ -822,16 +810,16 @@ db 00 00 14 42
 </AssemblerScript>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>28</ID>
+                  <ID>26</ID>
                   <Description>"초승달 단추3 / (어둠학파 가는길)"</Description>
                   <VariableType>Auto Assembler Script</VariableType>
                   <AssemblerScript>[ENABLE]
 pb+18:
-db 00 00 E2 42
+db 00 00 86 42
 pb+1C:
-db 00 00 DE 42
+db 00 00 03 43
 
-// 113 111
+// 67 131
 [DISABLE]
 </AssemblerScript>
                 </CheatEntry>
