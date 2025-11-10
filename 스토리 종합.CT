@@ -27,7 +27,7 @@
   local addr = tonumber(results[i], 16)
   -- 첫 번째 주소를 가져옴
 
-  local checkaddr = addr - 0x614
+  local checkaddr = addr - 0x61C
   -- 현재 주소에서 -0x614에 있는 주소계산
 
   local val = readFloat(checkaddr)
@@ -36,7 +36,7 @@
   if val == -1.0 then
   -- 만약 읽어온 float값이 -1.0이라면, 조건을 만족하는 주소
 
-  pb = addr - 0x8B0
+  pb = addr - 0x8B8
   -- 조건을 만족한 주소에서 -0x894 한 주소를 전역변수 pb에 저장
 
   PlayerX = pb + 0x18
@@ -1609,95 +1609,35 @@ db 86 42 00 00 38 42
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
-              <ID>43258</ID>
-              <Description>"라운드0"</Description>
+              <ID>53484</ID>
+              <Description>"히어로즈2 임시 매크로"</Description>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
-PositionBase+76:
-db
-
 [DISABLE]
 </AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Toggle Activation</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
             </CheatEntry>
             <CheatEntry>
-              <ID>43299</ID>
-              <Description>"---------------------------------------"</Description>
-              <Options moHideChildren="1"/>
-              <Color>800000</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>43575</ID>
-              <Description>"라운드3"</Description>
+              <ID>53483</ID>
+              <Description>"히어로즈2 노말 매크로"</Description>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A4 42 00 00 00 41
-
 [DISABLE]
 </AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Toggle Activation</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
             </CheatEntry>
             <CheatEntry>
-              <ID>43298</ID>
-              <Description>"보트 리롤"</Description>
+              <ID>53482</ID>
+              <Description>"4라운드 도착지점"</Description>
               <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 9C 42 00 00 0C 42
+              <AssemblerScript>[enable]
+pb+18:
+db 00 00 D8 41
+pb+1C:
+db 00 00 5C 42
+[disable]
 
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Toggle Activation</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>43386</ID>
-              <Description>"라운드4"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db E0 41 00 00 58 42
+// 27 55
 
-[DISABLE]
 </AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Toggle Activation</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -6908,928 +6848,12 @@ db 04 42 00 00 5C 42
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
-              <ID>45144</ID>
-              <Description>"0 라운드 ←"</Description>
+              <ID>53480</ID>
+              <Description>"디비전2 하드 매크로"</Description>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 64 42 00 00 00 42
-
 [DISABLE]
 </AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45145</ID>
-              <Description>"1-1라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45146</ID>
-              <Description>"구출 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 60 41 00 00 D0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45183</ID>
-              <Description>"구출 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 48 42 00 00 88 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45147</ID>
-              <Description>"구출 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 14 42 00 00 F0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45149</ID>
-              <Description>"구출 4 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 82 42 00 00 38 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45182</ID>
-              <Description>"구출 5 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 04 42 00 00 86 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45150</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 20 42 00 00 94 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey OnlyWhileDown="1">
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45151</ID>
-              <Description>"1-2라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45152</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A0 42 00 00 C4 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45153</ID>
-              <Description>"작업대 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 8E 42 00 00 58 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45184</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 8C 42 00 00 90 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45154</ID>
-              <Description>"도착지점 ← "</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 20 42 00 00 50 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45155</ID>
-              <Description>"2-1라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45156</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 27 43 00 00 58 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45157</ID>
-              <Description>"작업대 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db CE 42 00 00 A2 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45158</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 08 42 00 00 82 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45159</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db C8 41 00 00 80 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45160</ID>
-              <Description>"3-1라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45161</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db D8 41 00 00 F0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45162</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A0 41 00 00 80 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45163</ID>
-              <Description>"3-2라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45164</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 64 42 00 00 B0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45165</ID>
-              <Description>"작업대 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 2C 42 00 00 5C 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45185</ID>
-              <Description>"작업대 3↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 74 42 00 00 30 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45167</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A6 42 00 00 34 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45166</ID>
-              <Description>"레드 카드 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 9A 42 00 00 80 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey OnlyWhileDown="1">
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45168</ID>
-              <Description>"3-3라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45169</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db F8 41 00 00 50 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45188</ID>
-              <Description>"복사기 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 82 42 00 00 80 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45187</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 88 41 00 00 96 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45172</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 80 42 00 00 9C 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45171</ID>
-              <Description>"블루 카드 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 92 42 00 00 44 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey OnlyWhileDown="1">
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45173</ID>
-              <Description>"3-4라운드"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45175</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db D8 41 00 00 F8 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45176</ID>
-              <Description>"작업대 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A0 42 00 00 C0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45189</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db AA 42 00 00 8C 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45177</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db CC 42 00 00 E0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45174</ID>
-              <Description>"깜디 카드 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db B0 41 00 00 58 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45178</ID>
-              <Description>"4-1"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45192</ID>
-              <Description>"작업대1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 8E 42 00 00 A2 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45191</ID>
-              <Description>"작업대2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 8C 42 00 00 D0 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45190</ID>
-              <Description>"작업대3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db DE 42 00 00 34 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45195</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db DC 42 00 00 84 42
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45194</ID>
-              <Description>"4-1"</Description>
-              <Options moHideChildren="1"/>
-              <Color>0000FF</Color>
-              <GroupHeader>1</GroupHeader>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45193</ID>
-              <Description>"작업대 1 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db A8 41 00 00 40 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45197</ID>
-              <Description>"작업대 2 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 00 42 00 00 40 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45196</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 28 42 00 00 40 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45198</ID>
-              <Description>"작업대 3 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 30 42 00 00 40 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>45179</ID>
-              <Description>"도착지점 ↑"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-PositionBase+76:
-db 64 42 00 00 A8 41
-
-[DISABLE]
-</AssemblerScript>
-              <Hotkeys>
-                <Hotkey>
-                  <Action>Deactivate</Action>
-                  <Keys>
-                    <Key>186</Key>
-                    <Key>222</Key>
-                  </Keys>
-                  <ID>0</ID>
-                </Hotkey>
-              </Hotkeys>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -10854,6 +9878,941 @@ scriptRec4.OnDeactivate = function(mr, before, currentstate)
   lastCheckY4 = nil
   stationaryStartTime4 = nil
   showMessage("EP2 매크로 중단")
+  return true
+end
+</LuaScriptEntry>
+    <LuaScriptEntry Name=" Script  7 ">if macroTimer3 then
+  macroTimer3.destroy()
+end
+
+macroTimer3 = createTimer()
+macroTimer3.Interval = 100
+macroTimer3.Enabled = false
+
+running3 = false
+roundsCompleted3 = {}
+isPaused = false
+currentActiveRound = nil
+lastCheckX3 = nil
+lastCheckY3 = nil
+stationaryStartTime3 = nil
+
+local function readPosition()
+  local posX = readFloat("pb+18")
+  local posY = readFloat("pb+1C")
+  return posX, posY
+end
+
+local function checkCoordinates(targetX, targetY, tolerance)
+  tolerance = tolerance or 2.0
+  local posX, posY = readPosition()
+
+  if not posX or not posY then
+    return false
+  end
+
+  local diffX = math.abs(posX - targetX)
+  local diffY = math.abs(posY - targetY)
+
+  return diffX &lt; tolerance and diffY &lt; tolerance
+end
+
+local function handleRound0()
+  local myRound = currentActiveRound
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running3 then timer.destroy() return end
+    if myRound ~= currentActiveRound then timer.destroy() return end
+    if isPaused then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0x60, 0x42)
+    writeBytes("pb+1C", 0x00, 0x00, 0x04, 0x42)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+local function handleRound1()
+  local myRound = currentActiveRound
+  local delayTimer1 = createTimer()
+  delayTimer1.Interval = 400
+  delayTimer1.OnTimer = function(timer1)
+    if not running3 then timer1.destroy() return end
+    if myRound ~= currentActiveRound then timer1.destroy() return end
+    if isPaused then timer1.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0x60, 0x41)
+    writeBytes("pb+1C", 0x00, 0x00, 0xD0, 0x41)
+    timer1.Enabled = false
+    timer1.destroy()
+
+    local delayTimer2 = createTimer()
+    delayTimer2.Interval = 400
+    delayTimer2.OnTimer = function(timer2)
+      if not running3 then timer2.destroy() return end
+      if myRound ~= currentActiveRound then timer2.destroy() return end
+      if isPaused then timer2.destroy() return end
+      writeBytes("pb+18", 0x00, 0x00, 0x48, 0x42)
+      writeBytes("pb+1C", 0x00, 0x00, 0x88, 0x41)
+      timer2.Enabled = false
+      timer2.destroy()
+
+      local delayTimer3 = createTimer()
+      delayTimer3.Interval = 400
+      delayTimer3.OnTimer = function(timer3)
+        if not running3 then timer3.destroy() return end
+        if myRound ~= currentActiveRound then timer3.destroy() return end
+        if isPaused then timer3.destroy() return end
+        writeBytes("pb+18", 0x00, 0x00, 0x14, 0x42)
+        writeBytes("pb+1C", 0x00, 0x00, 0xF0, 0x41)
+        timer3.Enabled = false
+        timer3.destroy()
+
+        local delayTimer4 = createTimer()
+        delayTimer4.Interval = 400
+        delayTimer4.OnTimer = function(timer4)
+          if not running3 then timer4.destroy() return end
+          if myRound ~= currentActiveRound then timer4.destroy() return end
+          if isPaused then timer4.destroy() return end
+          writeBytes("pb+18", 0x00, 0x00, 0x82, 0x42)
+          writeBytes("pb+1C", 0x00, 0x00, 0x38, 0x42)
+          timer4.Enabled = false
+          timer4.destroy()
+
+          local delayTimer5 = createTimer()
+          delayTimer5.Interval = 400
+          delayTimer5.OnTimer = function(timer5)
+            if not running3 then timer5.destroy() return end
+            if myRound ~= currentActiveRound then timer5.destroy() return end
+            if isPaused then timer5.destroy() return end
+            writeBytes("pb+18", 0x00, 0x00, 0x04, 0x42)
+            writeBytes("pb+1C", 0x00, 0x00, 0x86, 0x42)
+            timer5.Enabled = false
+            timer5.destroy()
+
+            local delayTimer6 = createTimer()
+            delayTimer6.Interval = 400
+            delayTimer6.OnTimer = function(timer6)
+              if not running3 then timer6.destroy() return end
+              if myRound ~= currentActiveRound then timer6.destroy() return end
+              if isPaused then timer6.destroy() return end
+              writeBytes("pb+18", 0x00, 0x00, 0x20, 0x42)
+              writeBytes("pb+1C", 0x00, 0x00, 0x94, 0x42)
+              timer6.Enabled = false
+              timer6.destroy()
+            end
+            delayTimer6.Enabled = true
+          end
+          delayTimer5.Enabled = true
+        end
+        delayTimer4.Enabled = true
+      end
+      delayTimer3.Enabled = true
+    end
+    delayTimer2.Enabled = true
+  end
+  delayTimer1.Enabled = true
+end
+
+local function handleRound2_1()
+  local myRound = currentActiveRound
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running3 then timer.destroy() return end
+    if myRound ~= currentActiveRound then timer.destroy() return end
+    if isPaused then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0x1C, 0x42)
+    writeBytes("pb+1C", 0x00, 0x00, 0x60, 0x41)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+local function handleRound2_2()
+  if currentActiveRound ~= "round2_2" then return end
+  writeBytes("pb+18", 0x00, 0x00, 0xC8, 0x41)
+  writeBytes("pb+1C", 0x00, 0x00, 0x80, 0x41)
+end
+
+local function handleDefense()
+  local myRound = currentActiveRound
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running3 then timer.destroy() return end
+    if myRound ~= currentActiveRound then timer.destroy() return end
+    if isPaused then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xA0, 0x41)
+    writeBytes("pb+1C", 0x00, 0x00, 0x80, 0x41)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+local function handleRound3_1()
+  if currentActiveRound ~= "round3_1" then return end
+  writeBytes("pb+18", 0x00, 0x00, 0xA6, 0x42)
+  writeBytes("pb+1C", 0x00, 0x00, 0x34, 0x42)
+end
+
+local function handleRound3_2()
+  if currentActiveRound ~= "round3_2" then return end
+  writeBytes("pb+18", 0x00, 0x00, 0x80, 0x42)
+  writeBytes("pb+1C", 0x00, 0x00, 0x9C, 0x42)
+end
+
+local function handleRound4_1()
+  local myRound = currentActiveRound
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running3 then timer.destroy() return end
+    if myRound ~= currentActiveRound then timer.destroy() return end
+    if isPaused then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xCC, 0x42)
+    writeBytes("pb+1C", 0x00, 0x00, 0xE0, 0x41)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+local function handleRound4_2()
+  if currentActiveRound ~= "round4_2" then return end
+  writeBytes("pb+18", 0x00, 0x00, 0xDC, 0x42)
+  writeBytes("pb+1C", 0x00, 0x00, 0x84, 0x42)
+end
+
+local function handleRound5_1()
+  if currentActiveRound ~= "round5_1" then return end
+  writeBytes("pb+18", 0x00, 0x00, 0x64, 0x42)
+  writeBytes("pb+1C", 0x00, 0x00, 0xA8, 0x41)
+end
+
+local function handleRound5_2()
+  if currentActiveRound ~= "round5_2" then return end
+  writeBytes("pb+18", 0x00, 0xF0, 0x79, 0x44)
+  writeBytes("pb+1C", 0x00, 0xF0, 0x79, 0x44)
+end
+
+local function isOnAnyRoundCoord()
+  local roundCoords = {
+    {56.0, 26.0}, {24.0, 70.0}, {75.0, 105.0}, {171.0, 55.0},
+    {27.0, 49.0}, {62.0, 23.0}, {20.0, 32.0}, {70.0, 82.0},
+    {68.0, 86.0}, {8.0, 23.0}, {18.0, 15.0}
+  }
+
+  for i, coord in ipairs(roundCoords) do
+    if checkCoordinates(coord[1], coord[2], 2.0) then
+      return true
+    end
+  end
+  return false
+end
+
+local function detectRound()
+  -- 15, 6 위치 체크 (일시 중단)
+  if checkCoordinates(15.0, 6.0, 2.0) then
+    if not isPaused then
+      isPaused = true
+      currentActiveRound = nil
+      stationaryStartTime3 = nil
+    end
+    return true
+  else
+    if isPaused then
+      isPaused = false
+    end
+  end
+
+  if isPaused then
+    return false
+  end
+
+  local roundCoords = {
+    {56.0, 26.0, "round0", "0 라운드"},
+    {24.0, 70.0, "round1", "1 라운드"},
+    {75.0, 105.0, "round2_1", "2-1 라운드"},
+    {171.0, 55.0, "round2_2", "2-2 라운드"},
+    {27.0, 49.0, "defense", "디펜스"},
+    {62.0, 23.0, "round3_1", "3-1 라운드"},
+    {20.0, 32.0, "round3_2", "3-2 라운드"},
+    {70.0, 82.0, "round4_1", "4-1 라운드"},
+    {68.0, 86.0, "round4_2", "4-2 라운드"},
+    {8.0, 23.0, "round5_1", "5-1 라운드"},
+    {18.0, 15.0, "round5_2", "5-2 라운드"}
+  }
+
+  for i, data in ipairs(roundCoords) do
+    if checkCoordinates(data[1], data[2], 2.0) then
+      local roundKey = data[3]
+      local currentTime = os.clock()
+
+      if not roundsCompleted3[roundKey] or (currentTime - roundsCompleted3[roundKey] &gt;= 10) then
+        roundsCompleted3[roundKey] = currentTime
+
+        currentActiveRound = roundKey
+        stationaryStartTime3 = nil
+
+        if roundKey == "round0" then
+          handleRound0()
+        elseif roundKey == "round1" then
+          handleRound1()
+        elseif roundKey == "round2_1" then
+          handleRound2_1()
+        elseif roundKey == "round2_2" then
+          handleRound2_2()
+        elseif roundKey == "defense" then
+          handleDefense()
+        elseif roundKey == "round3_1" then
+          handleRound3_1()
+        elseif roundKey == "round3_2" then
+          handleRound3_2()
+        elseif roundKey == "round4_1" then
+          handleRound4_1()
+        elseif roundKey == "round4_2" then
+          handleRound4_2()
+        elseif roundKey == "round5_1" then
+          handleRound5_1()
+        elseif roundKey == "round5_2" then
+          handleRound5_2()
+        end
+      end
+
+      return true
+    end
+  end
+
+  if currentActiveRound and not isOnAnyRoundCoord() then
+    local posX, posY = readPosition()
+
+    if posX and posY then
+      if lastCheckX3 and lastCheckY3 then
+        local diffX = math.abs(posX - lastCheckX3)
+        local diffY = math.abs(posY - lastCheckY3)
+
+        if diffX &lt; 0.5 and diffY &lt; 0.5 then
+          if not stationaryStartTime3 then
+            stationaryStartTime3 = os.clock()
+          else
+            local stationaryDuration = os.clock() - stationaryStartTime3
+
+            if stationaryDuration &gt;= 7.0 then
+              stationaryStartTime3 = os.clock()
+
+              if currentActiveRound == "round0" then
+                handleRound0()
+              elseif currentActiveRound == "round1" then
+                handleRound1()
+              elseif currentActiveRound == "round2_1" then
+                handleRound2_1()
+              elseif currentActiveRound == "round2_2" then
+                handleRound2_2()
+              elseif currentActiveRound == "defense" then
+                handleDefense()
+              elseif currentActiveRound == "round3_1" then
+                handleRound3_1()
+              elseif currentActiveRound == "round3_2" then
+                handleRound3_2()
+              elseif currentActiveRound == "round4_1" then
+                handleRound4_1()
+              elseif currentActiveRound == "round4_2" then
+                handleRound4_2()
+              elseif currentActiveRound == "round5_1" then
+                handleRound5_1()
+              elseif currentActiveRound == "round5_2" then
+                handleRound5_2()
+              end
+            end
+          end
+        else
+          stationaryStartTime3 = nil
+        end
+      end
+
+      lastCheckX3 = posX
+      lastCheckY3 = posY
+    end
+  end
+
+  return false
+end
+
+macroTimer3.OnTimer = function()
+  if not running3 then return end
+  detectRound()
+end
+
+local addressList = getAddressList()
+local existingRecord = addressList.getMemoryRecordByDescription("디비전2 하드 매크로")
+
+local scriptRec3
+if existingRecord then
+  scriptRec3 = existingRecord
+else
+  scriptRec3 = addressList.createMemoryRecord()
+  scriptRec3.Description = "디비전2 하드 매크로"
+  scriptRec3.Type = vtAutoAssembler
+  scriptRec3.Script = [[
+[ENABLE]
+[DISABLE]
+]]
+end
+
+scriptRec3.OnActivate = function(mr, before, currentstate)
+  if running3 then return true end
+  running3 = true
+  roundsCompleted3 = {}
+  isPaused = false
+  currentActiveRound = nil
+  lastCheckX3 = nil
+  lastCheckY3 = nil
+  stationaryStartTime3 = nil
+  macroTimer3.setEnabled(true)
+  showMessage("디비전2 하드 매크로 실행")
+  return true
+end
+
+scriptRec3.OnDeactivate = function(mr, before, currentstate)
+  if not running3 then return true end
+  running3 = false
+  macroTimer3.setEnabled(false)
+  roundsCompleted3 = {}
+  isPaused = false
+  currentActiveRound = nil
+  lastCheckX3 = nil
+  lastCheckY3 = nil
+  stationaryStartTime3 = nil
+  showMessage("매크로 중단")
+  return true
+end
+
+</LuaScriptEntry>
+    <LuaScriptEntry Name=" Script  8 ">if macroTimer4 then
+  macroTimer4.destroy()
+end
+
+macroTimer4 = createTimer()
+macroTimer4.Interval = 100
+macroTimer4.Enabled = false
+
+running4 = false
+roundsCompleted4 = {}
+isPaused4 = false
+currentActiveRound4 = nil
+lastCheckX4 = nil
+lastCheckY4 = nil
+stationaryStartTime4 = nil
+round1Active = false
+
+local function readPosition()
+  local posX = readFloat("pb+18")
+  local posY = readFloat("pb+1C")
+  return posX, posY
+end
+
+local function checkCoordinates(targetX, targetY, tolerance)
+  local posX, posY = readPosition()
+
+  if not posX or not posY then
+    return false
+  end
+
+  -- 오차범위 완전히 제거: 정확히 일치해야만 true
+  return posX == targetX and posY == targetY
+end
+
+-- 개박 설정 함수
+local function setGaeBAK(value)
+  if value == 200.5 then
+    writeBytes("dogAttackrange", 0x00, 0x80, 0x48, 0x43)  -- 200.5
+  elseif value == 50.5 then
+    writeBytes("dogAttackrange", 0x00, 0x00, 0x4A, 0x42)  -- 50.5
+  end
+end
+
+-- 0라운드: 인식좌표 (21, 22) → 5초 후 (20, 29)
+local function handleRound0_Heroes2()
+  local myRound = currentActiveRound4
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xA0, 0x41) -- 20.0
+    writeBytes("pb+1C", 0x00, 0x00, 0xE8, 0x41) -- 29.0
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 1라운드: 인식좌표 (25, 9) → 5초 후 (25, 5), 개박 200.5 설정
+local function handleRound1_Heroes2()
+  local myRound = currentActiveRound4
+  round1Active = true
+  setGaeBAK(200.5) -- 1라운드 인식 시 개박을 200.5로 설정
+
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xC8, 0x41) -- 25.0
+    writeBytes("pb+1C", 0x00, 0x00, 0xA0, 0x40) -- 5.0
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 3라운드: 인식좌표 (10, 62) → 3분 후 (81, 9)
+local function handleRound3_Heroes2()
+  local myRound = currentActiveRound4
+  round1Active = false
+  local delayTimer = createTimer()
+  delayTimer.Interval = 180000 -- 3분 = 180,000ms
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xA2, 0x42) -- 81.0
+    writeBytes("pb+1C", 0x00, 0x00, 0x10, 0x41) -- 9.0
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 4라운드: 인식좌표 (63, 17) → 3분 후 (27, 55)
+local function handleRound4_Heroes2()
+  local myRound = currentActiveRound4
+  round1Active = false
+  local delayTimer = createTimer()
+  delayTimer.Interval = 180000 -- 3분 = 180,000ms
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xD8, 0x41) -- 27.0
+    writeBytes("pb+1C", 0x00, 0x00, 0x5C, 0x42) -- 55.0
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 5라운드: 인식좌표 (8, 44) → 5초 후 (4, 42)
+local function handleRound5_Heroes2()
+  local myRound = currentActiveRound4
+  round1Active = false
+  local delayTimer = createTimer()
+  delayTimer.Interval = 5000
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0x80, 0x40) -- 4.0
+    writeBytes("pb+1C", 0x00, 0x00, 0x28, 0x42) -- 42.0
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+local function isOnAnyRoundCoord_Heroes2()
+  local roundCoords = {
+    {21.0, 22.0}, {25.0, 9.0}, {10.0, 62.0},
+    {63.0, 17.0}, {8.0, 44.0}
+  }
+
+  for i, coord in ipairs(roundCoords) do
+    if checkCoordinates(coord[1], coord[2]) then
+      return true
+    end
+  end
+  return false
+end
+
+local function detectRound_Heroes2()
+  -- 15, 6 위치 체크 (1라운드 활성 시 개박 변경, 그 외 일시 중단)
+  if checkCoordinates(15.0, 6.0) then
+    if round1Active then
+      -- 1라운드가 활성화된 상태에서 (15, 6)에 오면 개박을 50.5로 변경
+      setGaeBAK(50.5)
+      round1Active = false
+    end
+
+    if not isPaused4 then
+      isPaused4 = true
+      currentActiveRound4 = nil
+      stationaryStartTime4 = nil
+    end
+    return true
+  else
+    if isPaused4 then
+      isPaused4 = false
+    end
+  end
+
+  if isPaused4 then
+    return false
+  end
+
+  local roundCoords = {
+    {21.0, 22.0, "round0", "0 라운드"},
+    {25.0, 9.0, "round1", "1 라운드"},
+    {10.0, 62.0, "round3", "3 라운드"},
+    {63.0, 17.0, "round4", "4 라운드"},
+    {8.0, 44.0, "round5", "5 라운드"}
+  }
+
+  for i, data in ipairs(roundCoords) do
+    if checkCoordinates(data[1], data[2]) then
+      local roundKey = data[3]
+      local currentTime = os.clock()
+
+      if not roundsCompleted4[roundKey] or (currentTime - roundsCompleted4[roundKey] &gt;= 10) then
+        roundsCompleted4[roundKey] = currentTime
+
+        currentActiveRound4 = roundKey
+        stationaryStartTime4 = nil
+
+        if roundKey == "round0" then
+          handleRound0_Heroes2()
+        elseif roundKey == "round1" then
+          handleRound1_Heroes2()
+        elseif roundKey == "round3" then
+          handleRound3_Heroes2()
+        elseif roundKey == "round4" then
+          handleRound4_Heroes2()
+        elseif roundKey == "round5" then
+          handleRound5_Heroes2()
+        end
+      end
+
+      return true
+    end
+  end
+
+  if currentActiveRound4 and not isOnAnyRoundCoord_Heroes2() then
+    local posX, posY = readPosition()
+
+    if posX and posY then
+      if lastCheckX4 and lastCheckY4 then
+        local diffX = math.abs(posX - lastCheckX4)
+        local diffY = math.abs(posY - lastCheckY4)
+
+        if diffX &lt; 0.5 and diffY &lt; 0.5 then
+          if not stationaryStartTime4 then
+            stationaryStartTime4 = os.clock()
+          else
+            local stationaryDuration = os.clock() - stationaryStartTime4
+
+            if stationaryDuration &gt;= 7.0 then
+              stationaryStartTime4 = os.clock()
+
+              if currentActiveRound4 == "round0" then
+                handleRound0_Heroes2()
+              elseif currentActiveRound4 == "round1" then
+                handleRound1_Heroes2()
+              elseif currentActiveRound4 == "round3" then
+                handleRound3_Heroes2()
+              elseif currentActiveRound4 == "round4" then
+                handleRound4_Heroes2()
+              elseif currentActiveRound4 == "round5" then
+                handleRound5_Heroes2()
+              end
+            end
+          end
+        else
+          stationaryStartTime4 = nil
+        end
+      end
+
+      lastCheckX4 = posX
+      lastCheckY4 = posY
+    end
+  end
+
+  return false
+end
+
+macroTimer4.OnTimer = function()
+  if not running4 then return end
+  detectRound_Heroes2()
+end
+
+local addressList = getAddressList()
+local existingRecord = addressList.getMemoryRecordByDescription("히어로즈2 노말 매크로")
+
+local scriptRec4
+if existingRecord then
+  scriptRec4 = existingRecord
+else
+  scriptRec4 = addressList.createMemoryRecord()
+  scriptRec4.Description = "히어로즈2 노말 매크로"
+  scriptRec4.Type = vtAutoAssembler
+  scriptRec4.Script = [[
+[ENABLE]
+[DISABLE]
+]]
+end
+
+scriptRec4.OnActivate = function(mr, before, currentstate)
+  if running4 then return true end
+  running4 = true
+  roundsCompleted4 = {}
+  isPaused4 = false
+  currentActiveRound4 = nil
+  lastCheckX4 = nil
+  lastCheckY4 = nil
+  stationaryStartTime4 = nil
+  round1Active = false
+  macroTimer4.setEnabled(true)
+  showMessage("히어로즈2 노말 매크로 실행")
+  return true
+end
+
+scriptRec4.OnDeactivate = function(mr, before, currentstate)
+  if not running4 then return true end
+  running4 = false
+  macroTimer4.setEnabled(false)
+  roundsCompleted4 = {}
+  isPaused4 = false
+  currentActiveRound4 = nil
+  lastCheckX4 = nil
+  lastCheckY4 = nil
+  stationaryStartTime4 = nil
+  round1Active = false
+  showMessage("히어로즈2 노말 매크로 중단")
+  return true
+end
+</LuaScriptEntry>
+    <LuaScriptEntry Name=" Script  9 ">if macroTimer4 then
+  macroTimer4.destroy()
+end
+
+macroTimer4 = createTimer()
+macroTimer4.Interval = 100
+macroTimer4.Enabled = false
+
+running4 = false
+roundsCompleted4 = {}
+isPaused4 = false
+currentActiveRound4 = nil
+lastCheckX4 = nil
+lastCheckY4 = nil
+stationaryStartTime4 = nil
+
+local function readPosition()
+  local posX = readFloat("pb+18")
+  local posY = readFloat("pb+1C")
+  return posX, posY
+end
+
+local function checkCoordinates(targetX, targetY, tolerance)
+  tolerance = tolerance or 2.0
+  local posX, posY = readPosition()
+
+  if not posX or not posY then
+    return false
+  end
+
+  local diffX = math.abs(posX - targetX)
+  local diffY = math.abs(posY - targetY)
+
+  return diffX &lt; tolerance and diffY &lt; tolerance
+end
+
+-- 3라운드: 인식좌표 (10, 62) → 3분 후 (81, 9)
+local function handleRound3()
+  local myRound = currentActiveRound4
+  local delayTimer = createTimer()
+  delayTimer.Interval = 180000
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xA2, 0x42)
+    writeBytes("pb+1C", 0x00, 0x00, 0x10, 0x41)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 4라운드: 인식좌표 (63, 17) → 3분 후 (27, 55)
+local function handleRound4()
+  local myRound = currentActiveRound4
+  local delayTimer = createTimer()
+  delayTimer.Interval = 180000
+  delayTimer.OnTimer = function(timer)
+    if not running4 then timer.destroy() return end
+    if myRound ~= currentActiveRound4 then timer.destroy() return end
+    if isPaused4 then timer.destroy() return end
+    writeBytes("pb+18", 0x00, 0x00, 0xD8, 0x41)
+    writeBytes("pb+1C", 0x00, 0x00, 0x5C, 0x42)
+    timer.Enabled = false
+    timer.destroy()
+  end
+  delayTimer.Enabled = true
+end
+
+-- 5라운드: 인식만
+local function handleRound5()
+end
+
+local function isOnAnyRoundCoord()
+  local roundCoords = {
+    {10.0, 62.0}, {63.0, 17.0}, {8.0, 44.0}
+  }
+
+  for i, coord in ipairs(roundCoords) do
+    if checkCoordinates(coord[1], coord[2], 2.0) then
+      return true
+    end
+  end
+  return false
+end
+
+local function detectRound()
+  if checkCoordinates(15.0, 6.0, 2.0) then
+    if not isPaused4 then
+      isPaused4 = true
+      currentActiveRound4 = nil
+      stationaryStartTime4 = nil
+    end
+    return true
+  else
+    if isPaused4 then
+      isPaused4 = false
+    end
+  end
+
+  if isPaused4 then
+    return false
+  end
+
+  local roundCoords = {
+    {10.0, 62.0, "round3"},
+    {63.0, 17.0, "round4"},
+    {8.0, 44.0, "round5"}
+  }
+
+  for i, data in ipairs(roundCoords) do
+    if checkCoordinates(data[1], data[2], 2.0) then
+      local roundKey = data[3]
+      local currentTime = os.clock()
+
+      if not roundsCompleted4[roundKey] or (currentTime - roundsCompleted4[roundKey] &gt;= 10) then
+        roundsCompleted4[roundKey] = currentTime
+        currentActiveRound4 = roundKey
+        stationaryStartTime4 = nil
+
+        if roundKey == "round3" then
+          handleRound3()
+        elseif roundKey == "round4" then
+          handleRound4()
+        elseif roundKey == "round5" then
+          handleRound5()
+        end
+      end
+
+      return true
+    end
+  end
+
+  if currentActiveRound4 and not isOnAnyRoundCoord() then
+    local posX, posY = readPosition()
+
+    if posX and posY then
+      if lastCheckX4 and lastCheckY4 then
+        local diffX = math.abs(posX - lastCheckX4)
+        local diffY = math.abs(posY - lastCheckY4)
+
+        if diffX &lt; 0.5 and diffY &lt; 0.5 then
+          if not stationaryStartTime4 then
+            stationaryStartTime4 = os.clock()
+          else
+            local stationaryDuration = os.clock() - stationaryStartTime4
+
+            if stationaryDuration &gt;= 7.0 then
+              stationaryStartTime4 = os.clock()
+
+              if currentActiveRound4 == "round3" then
+                handleRound3()
+              elseif currentActiveRound4 == "round4" then
+                handleRound4()
+              elseif currentActiveRound4 == "round5" then
+                handleRound5()
+              end
+            end
+          end
+        else
+          stationaryStartTime4 = nil
+        end
+      end
+
+      lastCheckX4 = posX
+      lastCheckY4 = posY
+    end
+  end
+
+  return false
+end
+
+macroTimer4.OnTimer = function()
+  if not running4 then return end
+  detectRound()
+end
+
+local addressList = getAddressList()
+local existingRecord = addressList.getMemoryRecordByDescription("히어로즈2 임시 매크로")
+
+local scriptRec4
+if existingRecord then
+  scriptRec4 = existingRecord
+else
+  scriptRec4 = addressList.createMemoryRecord()
+  scriptRec4.Description = "히어로즈2 임시 매크로"
+  scriptRec4.Type = vtAutoAssembler
+  scriptRec4.Script = [[
+[ENABLE]
+[DISABLE]
+]]
+end
+
+scriptRec4.OnActivate = function(mr, before, currentstate)
+  if running4 then return true end
+  running4 = true
+  roundsCompleted4 = {}
+  isPaused4 = false
+  currentActiveRound4 = nil
+  lastCheckX4 = nil
+  lastCheckY4 = nil
+  stationaryStartTime4 = nil
+  macroTimer4.setEnabled(true)
+  showMessage("히어로즈2 임시 매크로 실행")
+  return true
+end
+
+scriptRec4.OnDeactivate = function(mr, before, currentstate)
+  if not running4 then return true end
+  running4 = false
+  macroTimer4.setEnabled(false)
+  roundsCompleted4 = {}
+  isPaused4 = false
+  currentActiveRound4 = nil
+  lastCheckX4 = nil
+  lastCheckY4 = nil
+  stationaryStartTime4 = nil
+  showMessage("히어로즈2 임시 매크로 중단")
   return true
 end
 </LuaScriptEntry>
